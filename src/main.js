@@ -12,7 +12,11 @@ client.once("ready", () => {
 
 client.login(token);
 
-new spamCatcher(client, onSpam);
+const spamDetection = new spamCatcher(client, onSpam);
+
+// trigger onSpam if links are sent to 4 channels in 30 seconds
+spamDetection.channelsThreshold = 4;
+spamDetection.timeSpan = 30;
 
 function onSpam(member, spamMessages, lastMessage) {
     // member, lastMessage are regular disord.js objects
